@@ -5,12 +5,7 @@ public class Driver
 	{
 		String s = "-124";
 		String bin = "1101";
-		Driver.binaryToInteger(bin);
-		System.out.println(s + 5);
-		System.out.println(Driver.stringToInt(s) + 5);
-		System.out.println(Integer.parseInt(s) + 5);
-		System.out.println(Driver.binaryToInteger(bin) + 0);
-		
+		Driver.decimalToBase(0, 10);
 	}
 	
 	//this guy should take a String representation of a binary number
@@ -37,7 +32,40 @@ public class Driver
 		return total;
 	}
 	
+
+
+
+     static int hexToInteger(String hex)
+     {
+	int place = 1;
+	int total = 0;
+	char currChar;
+	for(int i = hex.length()-1; i >= 0;i--)
+	{
+		currChar = hex.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 16;
+		
+	}
+	return total;
+}
+     static String decimalToBase(int decimalNumber, int radix) {
 	
+    	   String answer = "";
+    	   
+           while (decimalNumber > 0) {
+        	   
+               int remainder = decimalNumber % radix;
+               decimalNumber = decimalNumber / radix;
+               answer = intToChar(remainder) + answer;
+           }
+           System.out.println(answer);
+           return answer;
+       }
+     static char intToChar(int val) {
+		return (char) "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(val);
+	}
+     
 	//return the integer version of the char parameter
 	static int charToInt(char c)
 	{
@@ -108,7 +136,7 @@ public class Driver
 		
 	//return the first occurence in s where c is found or -1 if 
 	//it was not found - we can't use the String's indexOf
-	static int indexOf(String s, char c)
+	static int indexOf(String s, char c, int val)
 	{
 		for(int i = 0; i < s.length(); i = i + 1)
 		{
@@ -118,7 +146,7 @@ public class Driver
 			}
 		}
 		//if we are still kicking....
-		return -1;
+		return 0;
 	}
 	
 	static void displayString(String s)
