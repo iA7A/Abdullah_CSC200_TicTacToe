@@ -3,9 +3,115 @@ public class Driver
 {
 	public static void main(String[] args)
 	{
-		String s = "-124";
-		String bin = "1101";
-		Driver.decimalToBase(0, 10);
+		String s = "hello world";
+		String answer = Driver.substring(s, 2, 7);
+		System.out.println(answer);
+		Driver.stringToCharArray(s);
+	}
+	static char[] stringToCharArray(String s) {
+		
+		String answer ="hello";
+		
+		char a[]=answer.toCharArray();
+		
+		for(int i = 0; i < a.length; i++){
+			
+		System.out.println("'"+a[i]+"'");
+		
+		}
+		return a;
+	}
+	static String substring(String s, int beginPos, int endPos)
+	{
+		String answer = "";
+		for(int i = beginPos; i < endPos; i++)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static String substring(String s, int pos)
+	{
+		String answer = "";
+		for(int i = pos; i < s.length(); i++)
+		{
+			answer += s.charAt(i);
+			//answer = answer + s.charAt(i)
+		}
+		return answer;
+	}
+	
+	static char int2Char(int num)
+	{
+		String map = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		return map.charAt(num);
+	}
+	
+	static String decimalToBase(int dec, int radix)
+	{
+		String answer = "";
+		while(dec != 0)
+		{
+			answer =  Driver.int2Char(dec % radix) + answer;
+			dec /= radix;
+		}
+		return answer;
+	}
+	
+	static String reverse(String s)
+	{
+		String answer = "";
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			answer += s.charAt(i);
+		}
+		return answer;
+	}
+	
+	static int baseToInteger(String s, int radix)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = s.length()-1; i >= 0; i--)
+		{
+			currChar = s.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= radix;
+		}
+		return total;
+	}
+	
+	static int hexToInteger(String hex)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = hex.length()-1; i >= 0; i--)
+		{
+			currChar = hex.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 16;
+		}
+		return total;
+	}
+	
+	static int octalToInteger(String oct)
+	{
+		int place = 1;
+		int total = 0;
+		char currChar;
+		
+		for(int i = oct.length()-1; i >= 0; i--)
+		{
+			currChar = oct.charAt(i);
+			total += (Driver.charToInt(currChar) * place);
+			place *= 8;
+		}
+		return total;
 	}
 	
 	//this guy should take a String representation of a binary number
@@ -14,62 +120,24 @@ public class Driver
 	static int binaryToInteger(String bin)
 	{
 		int place = 1;
-		int total = -1000;
+		int total = 0;
 		char currChar;
-		for(int i = 0; bin.length() > i ;i++)
+		for(int i = bin.length()-1; i >= 0; i--)
 		{
 			currChar = bin.charAt(i);
-			if(currChar == '-')
+			if(currChar == '1')
 			{
-				return total * -1;
+				total += place;
 			}
-			else
-			{
-				total += (Driver.charToInt(currChar) * place);
-				place *= 10;
-			}
+			place *= 2;
 		}
 		return total;
 	}
 	
-
-
-
-     static int hexToInteger(String hex)
-     {
-	int place = 1;
-	int total = 0;
-	char currChar;
-	for(int i = hex.length()-1; i >= 0;i--)
-	{
-		currChar = hex.charAt(i);
-			total += (Driver.charToInt(currChar) * place);
-			place *= 16;
-		
-	}
-	return total;
-}
-     static String decimalToBase(int decimalNumber, int radix) {
-	
-    	   String answer = "";
-    	   
-           while (decimalNumber > 0) {
-        	   
-               int remainder = decimalNumber % radix;
-               decimalNumber = decimalNumber / radix;
-               answer = intToChar(remainder) + answer;
-           }
-           System.out.println(answer);
-           return answer;
-       }
-     static char intToChar(int val) {
-		return (char) "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(val);
-	}
-     
 	//return the integer version of the char parameter
 	static int charToInt(char c)
 	{
-		return "0123456789".indexOf(c);
+		return "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(c);
 	}
 	
 	//Converts s, which is a string representation
@@ -136,7 +204,7 @@ public class Driver
 		
 	//return the first occurence in s where c is found or -1 if 
 	//it was not found - we can't use the String's indexOf
-	static int indexOf(String s, char c, int val)
+	static int indexOf(String s, char c)
 	{
 		for(int i = 0; i < s.length(); i = i + 1)
 		{
@@ -146,7 +214,7 @@ public class Driver
 			}
 		}
 		//if we are still kicking....
-		return 0;
+		return -1;
 	}
 	
 	static void displayString(String s)
